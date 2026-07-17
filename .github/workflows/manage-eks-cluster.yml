@@ -53,7 +53,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform init
-        run: terraform init
+        run: terraform init -upgrade
 
       - name: Terraform validate
         run: terraform validate
