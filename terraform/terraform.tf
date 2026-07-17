@@ -3,10 +3,10 @@
 
 terraform {
   cloud {
-    organization = "your_org_name"
+    organization = "megha-demo-org"
 
     workspaces {
-      name = "your_workspace_name"
+      name = "Demo"
     }
   }
 
