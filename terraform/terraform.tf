@@ -2,14 +2,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 terraform {
-  cloud {
-    organization = "megha-demo-org"
-
-    workspaces {
-      name = "Demo"
-    }
-  }
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
