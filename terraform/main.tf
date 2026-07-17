@@ -1,15 +1,9 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 provider "aws" {
   region = var.region
 }
 
-provider "port" {
-}
-
-# Filter out local zones, which are not currently supported 
-# with managed node groups
+# Filter out local zones, which are not currently supported
+# with managed node groups.
 data "aws_availability_zones" "available" {
   filter {
     name   = "opt-in-status"
@@ -66,7 +60,6 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
-
   }
 
   eks_managed_node_groups = {
@@ -92,8 +85,6 @@ module "eks" {
   }
 }
 
-
-# https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
 data "aws_iam_policy" "ebs_csi_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
@@ -120,19 +111,18 @@ resource "aws_eks_addon" "ebs-csi" {
   }
 }
 
-
-# Port resources
 resource "port_entity" "eks_cluster" {
   identifier = module.eks.cluster_arn
   title      = module.eks.cluster_name
-  blueprint  = "eks"
-  # run_id     = var.port_run_id
+  blueprint  = "eks_cluster"
+  run_id     = var.port_run_id
   properties = {
     string_props = {
-      "version"  = module.eks.cluster_version,
       "name"     = module.eks.cluster_name,
+      "version"  = module.eks.cluster_version,
       "endpoint" = module.eks.cluster_endpoint,
-      "roleArn"  = module.eks.cluster_iam_role_arn
+      "roleArn"  = module.eks.cluster_iam_role_arn,
+      "arn"      = module.eks.cluster_arn
     }
   }
   relations = {
