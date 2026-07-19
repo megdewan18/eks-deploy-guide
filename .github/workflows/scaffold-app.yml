@@ -25,11 +25,9 @@ on:
 jobs:
   scaffold_app:
     runs-on: ubuntu-latest
-
     env:
       PORT_RUN_ID: ${{ fromJson(github.event.inputs.context).runId }}
       
-
     steps:
       - name: Create a log message (post-action)
         uses: port-labs/port-github-action@v1
