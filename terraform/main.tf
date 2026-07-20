@@ -24,7 +24,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name = "education-vpc"
+  name = "education-vpc-1"
 
   cidr = "10.0.0.0/16"
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -60,7 +60,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "node-group-demo-1"
 
       ami_type = "AL2023_x86_64_STANDARD"
 
@@ -72,7 +72,7 @@ module "eks" {
     }
 
     two = {
-      name = "node-group-2"
+      name = "node-group-demo-2"
 
       ami_type = "AL2023_x86_64_STANDARD"
 
