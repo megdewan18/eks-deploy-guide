@@ -112,6 +112,11 @@ jobs:
     - name: Deploy to EKS
       run: |
         aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.CLUSTER_REGION }}
+        
+        echo "Testing Kubernetes authentication:"
+        kubectl auth can-i get deployments --all-namespaces
+        kubectl get namespaces
+        
         kubectl apply -f manifests/deployment.yml
         kubectl apply -f manifests/service.yml
 
